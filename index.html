@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Produktivitas Maksimal</title>
+    <meta name="description" content="Satu tempat untuk semua tugasmu. Tetap terorganisir, tetap produktif dengan TaskFlow.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+
+    <div class="bg-pattern"></div>
+
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">
+            <i class="bi bi-check2-square" style="color: #60a5fa;"></i> TaskFlow
+        </a>
+        <a href="app.html" class="nav-cta">Masuk</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge-glow">🌟 Manajemen Tugas Terbaik</div>
+            <h1>Tingkatkan<br>Produktivitas Anda</h1>
+            <p>Satu tempat untuk semua tugasmu. Tetap terorganisir, tetap produktif. Kelola aktivitas sehari-hari dengan mudah dan elegan.</p>
+            <div class="hero-buttons">
+                <a href="app.html" class="btn-primary">
+                    Mulai Sekarang <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="assets/hero_illustration.png" alt="TaskFlow Illustration">
+        </div>
+    </section>
+
+    <section class="features">
+        <h2 class="section-title">Fitur Unggulan Kami</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-card-checklist"></i>
+                </div>
+                <h3>Manajemen Tugas</h3>
+                <p>Catat dan kelola semua tugas Anda dalam antarmuka yang bersih dan bebas gangguan. Jangan biarkan ide atau tugas penting terlewatkan.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-flag"></i>
+                </div>
+                <h3>Penentuan Prioritas</h3>
+                <p>Tetapkan tingkat prioritas pada setiap tugas (Tinggi, Sedang, Rendah) agar Anda selalu fokus pada hal yang paling penting terlebih dahulu.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+                <h3>Pengaturan Tenggat</h3>
+                <p>Atur tenggat waktu (deadline) untuk setiap proyek Anda. Dapatkan gambaran jelas tentang apa yang harus diselesaikan hari ini dan ke depannya.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; <span id="year"></span> TaskFlow. All rights reserved.</p>
+        <script>
+            document.getElementById('year').textContent = new Date().getFullYear();
+        </script>
+    </footer>
+
+</body>
+</html>

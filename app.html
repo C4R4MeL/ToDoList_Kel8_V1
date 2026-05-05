@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskFlow</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===== AUTH PAGE ===== -->
+<div id="authPage">
+<div class="auth-wrapper">
+<div class="auth-box" id="authBox">
+
+    <div class="forms-container">
+
+        <!-- LOGIN FORM -->
+        <div class="form-panel form-login">
+            <h4>Masuk</h4>
+            <p class="subtitle">Masukkan data anda untuk masuk</p>
+
+            <div id="loginError" class="alert alert-danger py-2 d-none"></div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" id="loginUsername" class="form-control" placeholder="Masukkan Username">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-semibold">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan Kata Sandi">
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePass('loginPassword',this)"><i class="bi bi-eye"></i></button>
+                </div>
+            </div>
+            <button class="btn btn-primary w-100 py-2" onclick="doLogin()">Log In →</button>
+            <p class="text-center mt-3 text-muted small">
+                Belum punya akun? <button class="btn btn-link btn-sm p-0" onclick="switchPanel('register')">Daftar sekarang</button>
+            </p>
+        </div>
+
+        <!-- REGISTER FORM -->
+        <div class="form-panel form-register">
+            <h4>Buat Akun</h4>
+            <p class="subtitle">Masukkan data anda untuk membuat akun</p>
+
+            <div id="registerError" class="alert alert-danger py-2 d-none"></div>
+            <div id="registerSuccess" class="alert alert-success py-2 d-none"></div>
+
+            <div class="mb-2">
+                <label class="form-label fw-semibold mb-1">Username</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-person"></i></span>
+                    <input type="text" id="regUsername" class="form-control" placeholder="Masukkan Username">
+                </div>
+                <small id="usernameErr" class="text-danger d-none"></small>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label fw-semibold mb-1">Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock"></i></span>
+                    <input type="password" id="regPassword" class="form-control" placeholder="Masukkan Kata Sandi" oninput="checkStrength(this.value)">
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePass('regPassword',this)"><i class="bi bi-eye"></i></button>
+                </div>
+                <div class="mt-1">
+                    <div class="progress" style="height:4px"><div id="strength-bar" class="progress-bar" style="width:0%"></div></div>
+                    <small id="strength-text"></small>
+                </div>
+                <p class="small mb-0 mt-1" id="password-rules-text">
+                    Password harus mengandung:
+                    <span id="rule-length"  class="text-muted">8+ karakter</span>,
+                    <span id="rule-upper"   class="text-muted">huruf kapital</span>,
+                    <span id="rule-lower"   class="text-muted">huruf kecil</span>,
+                    <span id="rule-number"  class="text-muted">angka</span>, dan
+                    <span id="rule-special" class="text-muted">karakter spesial</span>.
+                </p>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-semibold mb-1">Konfirmasi Password</label>
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Masukkan Kata Sandi" oninput="checkMatch()">
+                    <button type="button" class="btn btn-outline-secondary" onclick="togglePass('confirmPassword',this)"><i class="bi bi-eye"></i></button>
+                </div>
+                <small id="match-text" class="mt-1 d-block"></small>
+            </div>
+
+            <button class="btn btn-primary w-100 py-2" onclick="doRegister()">Buat Akun →</button>
+            <p class="text-center mt-3 text-muted small">
+                Sudah punya akun? <button class="btn btn-link btn-sm p-0" onclick="switchPanel('login')">Masuk</button>
+            </p>
+        </div>
+
+    </div>
+
+    <!-- INFO PANEL -->
+    <div class="info-panel">
+        <div class="app-icon"><i class="bi bi-check2-square"></i></div>
+        <h1>TaskFlow</h1>
+        <div class="divider"></div>
+        <div class="info-texts">
+            <div class="info-login-text">
+                <p>Satu tempat untuk semua tugasmu. Tetap terorganisir, tetap produktif.</p>
+            </div>
+            <div class="info-register-text">
+                <p>Sudah punya akun? Masuk dan lanjutkan produktivitasmu hari ini.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+</div>
+</div>
+
+<!-- ===== MAIN APP ===== -->
+<div id="mainApp" class="d-none" style="display:flex; flex-direction:column; min-height:100vh;">
+
+    <!-- Navbar -->
+    <nav class="navbar shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand text-white fw-bold" href="#"><i class="bi bi-check2-square"></i> TaskFlow</a>
+            <button class="btn btn-light btn-sm px-3" onclick="doLogout()">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="container" style="flex:1">
+
+        <!-- Greeting + Statistik -->
+        <div class="greeting-card">
+            <div class="d-flex justify-content-between align-items-start flex-wrap gap-3 mb-3">
+                <div>
+                    <h4 class="fw-bold mb-1" id="greetingText"></h4>
+                    <p class="mb-0 opacity-75" id="greetingSubtext"></p>
+                </div>
+                <div class="text-end opacity-75 small" id="greetingDate"></div>
+            </div>
+            <hr style="border-color:rgba(255,255,255,0.2); margin: 0.75rem 0;">
+            <div class="row g-3 text-center">
+                <div class="col-6 col-md-3" onclick="applyFilter('all')" style="cursor:pointer">
+                    <div class="stat-card-inner active" id="stat-all">
+                        <div class="fs-2 fw-bold" id="statTotal">0</div>
+                        <div class="small opacity-75">Total Task</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" onclick="applyFilter('pending')" style="cursor:pointer">
+                    <div class="stat-card-inner" id="stat-pending">
+                        <div class="fs-2 fw-bold" id="statPending">0</div>
+                        <div class="small opacity-75">Pending</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" onclick="applyFilter('completed')" style="cursor:pointer">
+                    <div class="stat-card-inner" id="stat-completed">
+                        <div class="fs-2 fw-bold" id="statCompleted">0</div>
+                        <div class="small opacity-75">Selesai</div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3" onclick="applyFilter('overdue')" style="cursor:pointer">
+                    <div class="stat-card-inner" id="stat-overdue">
+                        <div class="fs-2 fw-bold" id="statOverdue">0</div>
+                        <div class="small opacity-75">Terlambat</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daftar Task + Sort + Tambah -->
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h5 class="mb-0 fw-semibold">📋 Daftar Task</h5>
+            <div class="d-flex gap-2">
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown">
+                        <i class="bi bi-sort-down"></i> Sort
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+                        <li><h6 class="dropdown-header">Urutkan berdasarkan</h6></li>
+                        <li><button class="dropdown-item sort-btn active-sort" data-sort="deadline" onclick="sortTasks('deadline')"><i class="bi bi-calendar-event text-primary"></i> Deadline Terdekat</button></li>
+                        <li><button class="dropdown-item sort-btn" data-sort="priority" onclick="sortTasks('priority')"><i class="bi bi-flag text-danger"></i> Prioritas Tertinggi</button></li>
+                    </ul>
+                </div>
+                <button class="btn btn-outline-info btn-sm me-2" onclick="exportToWallpaper()">
+                    <i class="bi bi-camera"></i> Ekspor Wallpaper
+                </button>
+                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#taskModal" onclick="openAddModal()">
+                    <i class="bi bi-plus-circle"></i> Tambah Task
+                </button>
+            </div>
+        </div>
+
+        <!-- Task Container -->
+        <div class="row g-3 mb-4" id="task-container"></div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-brand"><i class="bi bi-check2-square"></i> TaskFlow</span>
+                <span class="footer-copy">&copy; <span id="footerYear"></span> TaskFlow. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+</div>
+
+<!-- ===== MODAL TAMBAH/EDIT TASK ===== -->
+<div class="modal fade" id="taskModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fw-bold" id="modalTitle">Tambah Task</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editTaskId">
+
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Judul Task <span class="text-danger">*</span></label>
+                    <input type="text" id="taskTitle" class="form-control" placeholder="Contoh: Belajar PHP" oninput="checkTitle(this)">
+                    <div class="invalid-feedback" id="titleError">Judul task wajib diisi.</div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Deskripsi</label>
+                    <textarea id="taskDesc" class="form-control" rows="2" placeholder="Deskripsi task (opsional)"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Prioritas</label>
+                    <select id="taskPriority" class="form-select">
+                        <option value="rendah">🟢 Rendah</option>
+                        <option value="sedang" selected>🟡 Sedang</option>
+                        <option value="tinggi">🟠 Tinggi</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Deadline</label>
+                    <input type="date" id="taskDeadline" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="button" class="btn btn-primary" onclick="saveTask()">Simpan Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Wallpaper Template -->
+<div id="wallpaper-wrapper" style="position: absolute; left: -9999px; top: -9999px;">
+    <div id="wallpaper-template" class="wallpaper-template">
+        <div class="wp-header">
+            <h2 id="wp-date">Jadwal Tugas</h2>
+            <p>Tetap terorganisir, tetap produktif. ✨</p>
+        </div>
+        <div id="wp-task-list" class="wp-task-list">
+            <!-- Tasks will be injected here -->
+        </div>
+        <div class="wp-footer">
+            <span><i class="bi bi-check2-square"></i> TaskFlow</span>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/task.js"></script>
+<script src="js/export.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
