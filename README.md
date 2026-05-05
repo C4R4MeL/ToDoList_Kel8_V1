@@ -160,19 +160,6 @@ Password disimpan menggunakan `btoa()` (Base64 encoding) sebagai simulasi maskin
 
 ---
 
-## 📸 Tangkapan Layar
-
-### Halaman Landing
-> Landing page dengan hero section dan daftar fitur
-
-### Halaman Autentikasi
-> Form login & register dengan animasi slide dan password strength meter
-
-### Dashboard Aplikasi
-> Tampilan utama dengan greeting dinamis, form tambah task, dan daftar task
-
----
-
 ## 🛠️ Teknologi yang Digunakan
 
 - **HTML5** — Struktur semantik
@@ -187,7 +174,7 @@ Password disimpan menggunakan `btoa()` (Base64 encoding) sebagai simulasi maskin
 
 ## 👨‍💻 Informasi Pengembang
 
-> Proyek ini dikembangkan sebagai bagian dari tugas UTS  
+> Proyek ini dikembangkan sebagai bagian dari tugas UTS Praktikum 
 > Mata Kuliah: **Pemrograman Berbasis Web (PBW)**
 
 ---
