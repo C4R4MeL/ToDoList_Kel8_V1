@@ -19,7 +19,7 @@
 
 **TaskFlow** adalah aplikasi manajemen tugas (todo-list) berbasis web yang dibangun dengan teknologi web standar tanpa framework atau backend. Didesain dengan estetika modern untuk meningkatkan produktivitas developer dan pengguna sehari-hari.
 
-Proyek ini merupakan tugas UTS mata kuliah **Pemrograman Berbasis Web (PBW)** yang menerapkan konsep:
+Proyek ini merupakan tugas UTS praktikum **Pemrograman Berbasis Web (PBW)** yang menerapkan konsep:
 - Manipulasi DOM dengan JavaScript murni
 - Sistem autentikasi simulasi berbasis `localStorage`
 - Arsitektur kode modular (multi-file JS)
